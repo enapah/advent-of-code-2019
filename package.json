@@ -1,0 +1,20 @@
+{
+  "name": "advent-of-code-2019",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "prettier": "npx prettier src/**/*.ts --write",
+    "test": "mocha -r ts-node/register src/**/*.test.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chai": "4.2.5",
+    "@types/mocha": "5.2.7",
+    "@types/node": "12.12.14",
+    "chai": "4.2.0",
+    "mocha": "6.2.2",
+    "prettier": "^1.15.3",
+    "ts-node": "8.5.4",
+    "typescript": "3.7.2"
+  }
+}
