@@ -1,0 +1,32 @@
+{
+  "name": "advent-of-code-2019",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "prettier": "npx prettier src/**/*.ts --write",
+    "test": "jest",
+    "watch": "jest --watch"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "testMatch": [
+      "**/tests.ts"
+    ],
+    "transform": {
+      "": "ts-jest"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chai": "4.2.5",
+    "@types/jest": "24.0.23",
+    "@types/node": "12.12.14",
+    "chai": "4.2.0",
+    "jest": "24.9.0",
+    "prettier": "1.19.1",
+    "ts-jest": "24.2.0",
+    "typescript": "3.7.2"
+  }
+}
