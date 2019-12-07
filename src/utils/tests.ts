@@ -2,6 +2,7 @@ import {assert} from 'chai';
 
 import {intersectionOf} from './intersection-of';
 import {range} from './range';
+import {combinationsWithoutRepetition} from './combinations-without-repetition';
 
 describe('utils', () => {
   it('intersectionOf', () => {
@@ -11,5 +12,21 @@ describe('utils', () => {
 
   it('range', () => {
     assert.deepEqual(range(1, 5), [1, 2, 3, 4, 5]);
+  });
+
+  it('combinationsWithoutRepetition', () => {
+    assert.deepEqual(combinationsWithoutRepetition([0]), [[0]]);
+    assert.deepEqual(combinationsWithoutRepetition([0, 1]), [
+      [0, 1],
+      [1, 0]
+    ]);
+    assert.deepEqual(combinationsWithoutRepetition([0, 1, 2]), [
+      [0, 1, 2],
+      [0, 2, 1],
+      [1, 0, 2],
+      [1, 2, 0],
+      [2, 0, 1],
+      [2, 1, 0]
+    ]);
   });
 });
