@@ -3,6 +3,7 @@ import {assert} from 'chai';
 import {intersectionOf} from './intersection-of';
 import {range} from './range';
 import {combinationsWithoutRepetition} from './combinations-without-repetition';
+import {splitInChunks} from './split-in-chunks';
 
 describe('utils', () => {
   it('intersectionOf', () => {
@@ -27,6 +28,14 @@ describe('utils', () => {
       [1, 2, 0],
       [2, 0, 1],
       [2, 1, 0]
+    ]);
+  });
+
+  it('splitInChunks', () => {
+    assert.deepEqual(splitInChunks([1, 2, 3, 4, 5, 6, 7, 8, 9], 3), [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9]
     ]);
   });
 });
