@@ -1,6 +1,7 @@
 export enum ParameterMode {
   Position = 0,
-  Immediate = 1
+  Immediate = 1,
+  Relative = 2
 }
 
 export enum Operation {
@@ -12,5 +13,6 @@ export enum Operation {
   JumpIfFalse = 6,
   LessThan = 7,
   Equals = 8,
-  Halt = 9
+  AdjustRelative = 9,
+  Halt = 99
 }

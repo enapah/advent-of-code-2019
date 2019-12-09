@@ -1,5 +1,5 @@
-import {ParameterMode} from './types';
-import {execute} from './execute';
+import {ParameterMode} from '../int-computer/types';
+import {execute} from '../int-computer/execute';
 
 export const runProgram = (input: number[], [p1, p2, p3, p4, p5]: number[]) => {
   let currentAmp = 0;
@@ -9,7 +9,7 @@ export const runProgram = (input: number[], [p1, p2, p3, p4, p5]: number[]) => {
   const programs = [[...input], [...input], [...input], [...input], [...input]];
   const instructionPointers = [0, 0, 0, 0, 0];
 
-  const read = (mode: ParameterMode = ParameterMode.Immediate) => {
+  const read = (mode: ParameterMode) => {
     const program = programs[currentAmp];
 
     return mode === ParameterMode.Immediate
@@ -44,7 +44,15 @@ export const runProgram = (input: number[], [p1, p2, p3, p4, p5]: number[]) => {
   const halt = () => (running = false);
 
   while (running) {
-    execute(read, write, readInput, writeOutput, jump, halt);
+    execute(
+      read(ParameterMode.Immediate),
+      read,
+      write,
+      halt,
+      readInput,
+      writeOutput,
+      jump
+    );
   }
   return inputs[0][0]!;
 };
