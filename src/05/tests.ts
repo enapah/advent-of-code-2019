@@ -2,7 +2,7 @@ import {assert} from 'chai';
 
 import {part1, part2} from './solution';
 import {runProgram} from './run-program';
-import {parseInstruction} from './parse-instruction';
+import {parseInstruction} from '../int-computer/parse-instruction';
 
 describe('Day 5', () => {
   describe('parseInstruction', () => {
