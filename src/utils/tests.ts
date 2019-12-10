@@ -4,6 +4,7 @@ import {intersectionOf} from './intersection-of';
 import {range} from './range';
 import {combinationsWithoutRepetition} from './combinations-without-repetition';
 import {splitInChunks} from './split-in-chunks';
+import {gcd} from './gcd';
 
 describe('utils', () => {
   it('intersectionOf', () => {
@@ -37,5 +38,11 @@ describe('utils', () => {
       [4, 5, 6],
       [7, 8, 9]
     ]);
+  });
+
+  it('gcd', () => {
+    assert.equal(gcd(60, 45), 15);
+    assert.equal(gcd(60, 30), 30);
+    assert.equal(gcd(13, 7), 1);
   });
 });
