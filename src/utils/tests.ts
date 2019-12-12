@@ -5,6 +5,7 @@ import {range} from './range';
 import {combinationsWithoutRepetition} from './combinations-without-repetition';
 import {splitInChunks} from './split-in-chunks';
 import {gcd} from './gcd';
+import {lcm} from './lcm';
 
 describe('utils', () => {
   it('intersectionOf', () => {
@@ -44,5 +45,11 @@ describe('utils', () => {
     assert.equal(gcd(60, 45), 15);
     assert.equal(gcd(60, 30), 30);
     assert.equal(gcd(13, 7), 1);
+  });
+
+  it('lcm', () => {
+    assert.equal(lcm(3, 2), 6);
+    assert.equal(lcm(1, 5), 5);
+    assert.equal(lcm(15, 16), 240);
   });
 });
