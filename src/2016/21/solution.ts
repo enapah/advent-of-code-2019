@@ -1,35 +1,43 @@
 import {readInput} from '../../utils/read-input';
+import {combinationsWithoutRepetition} from '../../utils/combinations-without-repetition';
 
-const swapPositions = (
-  password: string[],
+export const swapPositions = (
+  password: string,
   positionX: number,
   positionY: number
-) =>
-  password.map((c, i) => {
-    if (i === positionX) {
-      return password[positionY];
-    }
-    if (i === positionY) {
-      return password[positionX];
-    }
-    return c;
-  });
+): string =>
+  password
+    .split('')
+    .map((c, i) => {
+      if (i === positionX) {
+        return password[positionY];
+      }
+      if (i === positionY) {
+        return password[positionX];
+      }
+      return c;
+    })
+    .join('');
 
-const swapLetters = (password: string[], letterX: string, letterY: string) =>
+export const swapLetters = (
+  password: string,
+  letterX: string,
+  letterY: string
+): string =>
   swapPositions(password, password.indexOf(letterX), password.indexOf(letterY));
 
-const rotateSteps = (password: string[], direction: string, steps: number) => {
-  const dir = direction === 'left' ? -1 : 1;
+export const rotateSteps = (
+  password: string,
+  direction: string,
+  steps: number
+): string => {
+  const dir = direction === 'left' ? 1 : -1;
   let s = (dir * steps) % password.length;
 
-  if (s < 0) {
-    s = password.length + steps;
-  }
-
-  return [...password.slice(steps), ...password.slice(0, steps)];
+  return [...password.slice(s), ...password.slice(0, s)].join('');
 };
 
-const rotateByPosition = (password: string[], letter: string) => {
+export const rotateByPosition = (password: string, letter: string): string => {
   let position = password.indexOf(letter);
 
   return rotateSteps(
@@ -39,58 +47,76 @@ const rotateByPosition = (password: string[], letter: string) => {
   );
 };
 
-const movePosition = (
-  password: string[],
+export const movePosition = (
+  password: string,
   positionX: number,
   positionY: number
-) => {
+): string => {
   const letter = password[positionX];
 
-  const p = password.filter((_, i) => i !== positionX);
+  const p = password.split('').filter((_, i) => i !== positionX);
 
-  return p;
+  return [...p.slice(0, positionY), letter, ...p.slice(positionY)].join('');
 };
+
+export const reversePositions = (
+  password: string,
+  positionX: number,
+  positionY: number
+): string => {
+  const p = password.split('');
+
+  return [
+    ...p.slice(0, positionX),
+    ...p.slice(positionX, positionY + 1).reverse(),
+    ...p.slice(positionY + 1)
+  ].join('');
+};
+
+const applyOperation = (password: string, operation: string) => {
+  let match = operation.match(/swap position (.*) with position (.*)/);
+  if (match) {
+    return swapPositions(password, Number(match[1]), Number(match[2]));
+  }
+  match = operation.match(/swap letter (.) with letter (.)/);
+  if (match) {
+    return swapLetters(password, match[1], match[2]);
+  }
+  match = operation.match(/rotate (left|right) (.*) steps?/);
+  if (match) {
+    return rotateSteps(password, match[1], Number(match[2]));
+  }
+  match = operation.match(/rotate based on position of letter (.)/);
+  if (match) {
+    return rotateByPosition(password, match[1]);
+  }
+  match = operation.match(/reverse positions (.*) through (.*)/);
+  if (match) {
+    return reversePositions(password, Number(match[1]), Number(match[2]));
+  }
+  match = operation.match(/move position (.*) to position (.*)/);
+  if (match) {
+    return movePosition(password, Number(match[1]), Number(match[2]));
+  }
+  throw new Error('No match for ' + operation);
+};
+
+const scramble = (operations: string[], password: string) =>
+  operations.reduce(applyOperation, password);
 
 export const part1 = () => {
-  /*
-swap position X with position Y
-  means that the letters at indexes X and Y (counting from 0) should be swapped.
+  const password = 'abcdefgh';
+  const operations = readInput(__dirname);
 
-swap letter X with letter Y
-  means that the letters X and Y should be swapped (regardless of where they appear in the string).
-
-rotate left/right X steps
-  means that the whole string should be rotated; for example, one right rotation would turn abcd into dabc.
-
-rotate based on position of letter X
-  means that the whole string should be rotated to the right based on the index of letter X (counting from 0) as determined before this instruction does any rotations. Once the index is determined, rotate the string to the right one time, plus a number of times equal to that index, plus one additional time if the index was at least 4.
-
-reverse positions X through Y 
-  means that the span of letters at indexes X through Y (including the letters at X and Y) should be reversed in order.
-
-move position X to position Y means that the letter which is at index X should be removed from the string, then inserted such that it ends up at index Y.
-   */
-
-  let password = 'abcde'.split('');
-
-  readInput(__dirname).forEach(s => {
-    let match = s.match(/swap position (.*) with position (.*)/);
-    if (match) {
-      password = swapPositions(password, Number(match[1]), Number(match[2]));
-    }
-    match = s.match(/swap letter (.*) with letter (.*)/);
-    if (match) {
-      password = swapLetters(password, match[1], match[2]);
-    }
-    match = s.match(/rotate (.*) (.*) steps/);
-    if (match) {
-      password = rotateSteps(password, match[1], Number(match[2]));
-    }
-    match = s.match(/rotate based on position of letter (.*)/);
-    if (match) {
-      rotateByPosition(password, match[1]);
-    }
-  });
+  return scramble(operations, password);
 };
 
-export const part2 = () => readInput(__dirname);
+export const part2 = () => {
+  const scrambled = 'fbgdceah';
+  const operations = readInput(__dirname);
+  const allCombinations = combinationsWithoutRepetition(
+    scrambled.split('')
+  ).map(s => s.join(''));
+
+  return allCombinations.find(c => scramble(operations, c) === scrambled)!;
+};
