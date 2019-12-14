@@ -7,7 +7,10 @@ describe('2016 - Day 17', () => {
     it('examples', () => {
       assert.equal(findShortestPath('ihgpwlah'), 'DDRRRD');
       assert.equal(findShortestPath('kglvqrro'), 'DDUDRLRRUDRD');
-      assert.equal(findShortestPath('ulqzkmiv'), 'DRURDRUDDLLDLUURRDULRLDUUDDDRR');
+      assert.equal(
+        findShortestPath('ulqzkmiv'),
+        'DRURDRUDDLLDLUURRDULRLDUUDDDRR'
+      );
     });
 
     it('solution', () => {

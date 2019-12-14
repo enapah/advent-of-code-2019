@@ -160,7 +160,7 @@ export const part2 = () => {
       case 'eqrr':
         return registers[a] === registers[b] ? 1 : 0;
     }
-    throw new Error(`Unknown operation: ${name}`)
+    throw new Error(`Unknown operation: ${name}`);
   }
 
   readInput(__dirname)
@@ -174,12 +174,14 @@ export const part2 = () => {
   console.log(registers);
 
   const lines = readInput(__dirname);
-  const operations = matchOperations(lines).map(o => ({
-    ...o,
-    possibleNames: o.possibleNames.filter(
-      name => !Object.values(trans).includes(name)
-    )
-  })).filter(o => !trans[o.opCode]);
+  const operations = matchOperations(lines)
+    .map(o => ({
+      ...o,
+      possibleNames: o.possibleNames.filter(
+        name => !Object.values(trans).includes(name)
+      )
+    }))
+    .filter(o => !trans[o.opCode]);
 
   console.log([
     ...new Set(

@@ -31,7 +31,7 @@ describe('Day XX', () => {
 
   xdescribe('part 2', () => {
     it('examples', () => {
-      assert.equal(numberOfVisitedHouses(['^','v']), 3);
+      assert.equal(numberOfVisitedHouses(['^', 'v']), 3);
       assert.equal(numberOfVisitedHouses(['^', '>', 'v', '<']), 3);
       assert.equal(
         numberOfVisitedHouses([
