@@ -1,4 +1,4 @@
-export const findExtent = (colors: Map<string, number>) =>
+export const findExtent = (colors: Map<string, any>) =>
   [...colors.keys()]
     .map(s => JSON.parse(s))
     .reduce(

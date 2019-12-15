@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "prettier": "npx prettier src/**/*.ts --write",
-    "test": "jest",
-    "watch": "jest --watch"
+    "test": "jest -i src/15/tests.ts",
+    "watch": "jest --watch src/15/tests.ts"
   },
   "jest": {
     "roots": [

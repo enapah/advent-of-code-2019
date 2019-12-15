@@ -4,7 +4,8 @@ import {execute} from './execute';
 export const runProgram = (
   input: number[],
   readInput: () => number,
-  writeOutput: (value: number) => void
+  writeOutput: (value: number) => void,
+  isRunning: () => boolean = () => true
 ) => {
   let running = true;
   let instructionPointer = 0;
@@ -49,7 +50,7 @@ export const runProgram = (
 
   const halt = () => (running = false);
 
-  while (running) {
+  while (running && isRunning()) {
     execute(
       read(ParameterMode.Immediate),
       read,
